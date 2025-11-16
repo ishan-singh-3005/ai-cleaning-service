@@ -297,6 +297,14 @@
               <input type="number" data-field="utilitiesGrowthRate" />
             </div>
             <div class="form-field">
+              <label>Cloud &amp; Software Subscriptions (Monthly $)</label>
+              <input type="number" data-field="cloudSoftwareMonthly" />
+            </div>
+            <div class="form-field">
+              <label>Cloud &amp; Software Growth Rate (%)</label>
+              <input type="number" data-field="cloudSoftwareGrowthRate" />
+            </div>
+            <div class="form-field">
               <label>Tax Rate (%)</label>
               <input type="number" data-field="taxRate" />
             </div>
@@ -370,6 +378,8 @@
       insuranceGrowthRate: 10,
       utilitiesYear1: 10000,
       utilitiesGrowthRate: 15,
+      cloudSoftwareMonthly: 2000,
+      cloudSoftwareGrowthRate: 15,
       taxRate: 13
     };
 
@@ -414,7 +424,8 @@
         const marketing = Math.round(assumptions.marketingBudgetYear1 * Math.pow(1 + assumptions.marketingGrowthRate / 100, year - 1));
         const insurance = Math.round(assumptions.insuranceYear1 * Math.pow(1 + assumptions.insuranceGrowthRate / 100, year - 1));
         const utilities = Math.round(assumptions.utilitiesYear1 * Math.pow(1 + assumptions.utilitiesGrowthRate / 100, year - 1));
-        const totalOpEx = salaries + marketing + insurance + utilities;
+        const cloudSoftware = Math.round((assumptions.cloudSoftwareMonthly * 12) * Math.pow(1 + assumptions.cloudSoftwareGrowthRate / 100, year - 1));
+        const totalOpEx = salaries + marketing + insurance + utilities + cloudSoftware;
 
         const ebitda = grossProfit - totalOpEx;
         const taxes = ebitda > 0 ? ebitda * (assumptions.taxRate / 100) : 0;
@@ -443,6 +454,7 @@
           marketing,
           insurance,
           utilities,
+          cloudSoftware,
           totalOpEx,
           ebitda,
           taxes,
@@ -510,6 +522,7 @@
         { label: 'Marketing', key: 'marketing', format: currencyFormat, rowClass: 'accent-gray' },
         { label: 'Insurance', key: 'insurance', format: currencyFormat, rowClass: 'accent-gray' },
         { label: 'Utilities & Rent', key: 'utilities', format: currencyFormat, rowClass: 'accent-gray' },
+        { label: 'Cloud & Software Subscriptions', key: 'cloudSoftware', format: currencyFormat, rowClass: 'accent-gray' },
         { label: 'Total Operating Expenses', key: 'totalOpEx', format: currencyFormat, rowClass: 'accent-purple' }
       ];
 
@@ -595,6 +608,7 @@
         { label: 'Marketing', key: 'marketing', format: csvFormats.currency },
         { label: 'Insurance', key: 'insurance', format: csvFormats.currency },
         { label: 'Utilities & Rent', key: 'utilities', format: csvFormats.currency },
+        { label: 'Cloud & Software Subscriptions', key: 'cloudSoftware', format: csvFormats.currency },
         { label: 'Total Operating Expenses', key: 'totalOpEx', format: csvFormats.currency }
       ]);
 
