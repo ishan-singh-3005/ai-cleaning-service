@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Cleaning Service - 5 Year Financial Plan</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+
+    .app-shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1rem 3rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 10px 35px rgba(15, 23, 42, 0.08);
+    }
+
+    h1 {
+      font-size: clamp(1.7rem, 3vw, 2.5rem);
+      margin: 0;
+    }
+
+    h2 {
+      margin: 0 0 1rem;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+      border: none;
+    }
+
+    .primary-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: #2563eb;
+      color: #fff;
+      padding: 0.65rem 1.25rem;
+      border-radius: 0.65rem;
+      font-weight: 600;
+      transition: background 0.2s ease;
+    }
+
+    .primary-btn:hover {
+      background: #1d4ed8;
+    }
+
+    .assumption-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .panel {
+      border-radius: 0.85rem;
+      padding: 1.25rem;
+    }
+
+    .panel h3 {
+      margin-top: 0;
+    }
+
+    .panel-blue { background: #e0f2fe; }
+    .panel-green { background: #dcfce7; }
+    .panel-purple { background: #ede9fe; }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin-bottom: 0.95rem;
+    }
+
+    label {
+      font-size: 0.9rem;
+      color: #475569;
+    }
+
+    input[type="number"] {
+      padding: 0.55rem 0.7rem;
+      border-radius: 0.45rem;
+      border: 1px solid #cbd5f5;
+      font-size: 0.95rem;
+      width: 100%;
+    }
+
+    input[type="number"]:focus {
+      outline: 2px solid #2563eb55;
+      border-color: #2563eb;
+    }
+
+    .hint {
+      font-size: 0.75rem;
+      color: #64748b;
+    }
+
+    .tables {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      overflow: hidden;
+      border-radius: 0.85rem;
+      font-size: 0.92rem;
+    }
+
+    thead {
+      background: #e2e8f0;
+    }
+
+    th, td {
+      padding: 0.85rem 0.75rem;
+      text-align: right;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    th:first-child, td:first-child {
+      text-align: left;
+      font-weight: 600;
+      width: 30%;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .accent-blue { background: #dbeafe; font-weight: 600; }
+    .accent-green { background: #dcfce7; font-weight: 600; }
+    .accent-purple { background: #e9d5ff; font-weight: 600; }
+    .accent-yellow { background: #fef9c3; font-weight: 600; }
+    .accent-gray { background: #f8fafc; }
+
+    .value-positive { color: #15803d; font-weight: 600; }
+    .value-negative { color: #b91c1c; font-weight: 600; }
+
+    @media (max-width: 768px) {
+      th, td {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <div class="card">
+      <header style="display:flex; flex-wrap:wrap; gap:1rem; align-items:center; justify-content:space-between; margin-bottom:1.5rem;">
+        <h1>AI Cleaning Service · 5-Year Financial Plan</h1>
+      </header>
+
+      <section>
+        <h2>Key Assumptions (Adjust Values)</h2>
+        <div class="assumption-grid">
+          <div class="panel panel-blue">
+            <h3>Revenue</h3>
+            <div class="form-field">
+              <label>Monthly Subscription Price ($)</label>
+              <input type="number" data-field="subscriptionPrice" />
+            </div>
+            <div class="form-field">
+              <label>One-Time Service Price ($)</label>
+              <input type="number" data-field="oneTimePrice" />
+            </div>
+            <div class="form-field">
+              <label>Year 1 Subscribers</label>
+              <input type="number" data-field="year1Subscribers" />
+            </div>
+            <div class="form-field">
+              <label>Year 1 One-Time Customers</label>
+              <input type="number" data-field="year1OneTime" />
+            </div>
+            <div class="form-field">
+              <label>Subscriber Growth Rate (%)</label>
+              <input type="number" data-field="subscriberGrowthRate" />
+            </div>
+            <div class="form-field">
+              <label>One-Time Growth Rate (%)</label>
+              <input type="number" data-field="oneTimeGrowthRate" />
+            </div>
+            <div class="form-field">
+              <label>Cleanings Per Subscriber Per Month</label>
+              <input type="number" step="0.1" data-field="subscriptionsPerMonth" />
+              <p class="hint">1 = monthly · 4 = weekly</p>
+            </div>
+          </div>
+
+          <div class="panel panel-green">
+            <h3>Operations & Capacity</h3>
+            <div class="form-field">
+              <label>Hours Per Job (cleaning)</label>
+              <input type="number" step="0.5" data-field="hoursPerJob" />
+            </div>
+            <div class="form-field">
+              <label>Travel Time Per Job (hours)</label>
+              <input type="number" step="0.25" data-field="travelTimePerJob" />
+              <p class="hint">To / from site + setup</p>
+            </div>
+            <div class="form-field">
+              <label>Charging Time Per Day (hours)</label>
+              <input type="number" step="0.5" data-field="chargingTimePerDay" />
+            </div>
+            <div class="form-field">
+              <label>Total Hours Per Robot Per Day</label>
+              <input type="number" data-field="hoursPerRobotPerDay" />
+            </div>
+            <div class="form-field">
+              <label>Robot Utilization Rate (%)</label>
+              <input type="number" data-field="utilizationRate" />
+            </div>
+            <div class="form-field">
+              <label>Working Days Per Month</label>
+              <input type="number" data-field="daysPerMonth" />
+            </div>
+            <div class="form-field">
+              <label>Robot Cost Per Unit ($)</label>
+              <input type="number" data-field="robotCostPerUnit" />
+            </div>
+            <div class="form-field">
+              <label>Maintenance Per Robot ($/year)</label>
+              <input type="number" data-field="maintenancePerRobot" />
+            </div>
+            <div class="form-field">
+              <label>Robots Per Station</label>
+              <input type="number" data-field="robotsPerStation" />
+            </div>
+            <div class="form-field">
+              <label>Station Cost Per Unit ($)</label>
+              <input type="number" data-field="stationCostPerUnit" />
+            </div>
+            <div class="form-field">
+              <label>Station Maintenance ($/year)</label>
+              <input type="number" data-field="stationMaintenancePerYear" />
+            </div>
+          </div>
+
+          <div class="panel panel-purple">
+            <h3>Operating Expenses</h3>
+            <div class="form-field">
+              <label>Salary Per Employee ($)</label>
+              <input type="number" data-field="salaryPerEmployee" />
+            </div>
+            <div class="form-field">
+              <label>Year 1 Employees</label>
+              <input type="number" data-field="employeesYear1" />
+            </div>
+            <div class="form-field">
+              <label>Employee Growth Rate (%)</label>
+              <input type="number" data-field="employeeGrowthRate" />
+            </div>
+            <div class="form-field">
+              <label>Year 1 Marketing Budget ($)</label>
+              <input type="number" data-field="marketingBudgetYear1" />
+            </div>
+            <div class="form-field">
+              <label>Marketing Growth Rate (%)</label>
+              <input type="number" data-field="marketingGrowthRate" />
+            </div>
+            <div class="form-field">
+              <label>Year 1 Insurance ($)</label>
+              <input type="number" data-field="insuranceYear1" />
+            </div>
+            <div class="form-field">
+              <label>Insurance Growth Rate (%)</label>
+              <input type="number" data-field="insuranceGrowthRate" />
+            </div>
+            <div class="form-field">
+              <label>Year 1 Utilities ($)</label>
+              <input type="number" data-field="utilitiesYear1" />
+            </div>
+            <div class="form-field">
+              <label>Utilities Growth Rate (%)</label>
+              <input type="number" data-field="utilitiesGrowthRate" />
+            </div>
+            <div class="form-field">
+              <label>Tax Rate (%)</label>
+              <input type="number" data-field="taxRate" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="tables">
+        <div>
+          <h3>Revenue Projections</h3>
+          <table id="revenue-table">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div>
+          <h3>Cost of Goods Sold</h3>
+          <table id="cogs-table">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div>
+          <h3>Operating Expenses</h3>
+          <table id="opex-table">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div>
+          <h3>Profitability</h3>
+          <table id="profit-table">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const years = [1, 2, 3, 4, 5];
+    const assumptions = {
+      subscriptionPrice: 200,
+      oneTimePrice: 150,
+      year1Subscribers: 500,
+      year1OneTime: 1200,
+      subscriberGrowthRate: 40,
+      oneTimeGrowthRate: 30,
+      subscriptionsPerMonth: 1,
+      hoursPerJob: 2,
+      travelTimePerJob: 1,
+      chargingTimePerDay: 2,
+      hoursPerRobotPerDay: 8,
+      daysPerMonth: 22,
+      utilizationRate: 70,
+      robotCostPerUnit: 25000,
+      maintenancePerRobot: 3000,
+      robotsPerStation: 15,
+      stationCostPerUnit: 50000,
+      stationMaintenancePerYear: 5000,
+      salaryPerEmployee: 50000,
+      employeesYear1: 5,
+      employeeGrowthRate: 20,
+      marketingBudgetYear1: 50000,
+      marketingGrowthRate: 25,
+      insuranceYear1: 15000,
+      insuranceGrowthRate: 10,
+      utilitiesYear1: 10000,
+      utilitiesGrowthRate: 15,
+      taxRate: 25
+    };
+
+    let latestFinancials = [];
+
+    const numberFormat = (value) => Number(value).toLocaleString(undefined, { maximumFractionDigits: 0 });
+    const currencyFormat = (value) => `$${Number(value).toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
+    const percentFormat = (value) => `${Number(value).toFixed(1)}%`;
+
+    function calculateFinancials() {
+      const financials = [];
+      years.forEach((year, index) => {
+        const subscribers = Math.round(assumptions.year1Subscribers * Math.pow(1 + assumptions.subscriberGrowthRate / 100, year - 1));
+        const oneTimeCustomers = Math.round(assumptions.year1OneTime * Math.pow(1 + assumptions.oneTimeGrowthRate / 100, year - 1));
+        const subscriptionRevenue = subscribers * assumptions.subscriptionPrice * 12;
+        const oneTimeRevenue = oneTimeCustomers * assumptions.oneTimePrice;
+        const totalRevenue = subscriptionRevenue + oneTimeRevenue;
+
+        const totalJobsPerMonth = (subscribers * assumptions.subscriptionsPerMonth) + (oneTimeCustomers / 12);
+        const totalJobsPerYear = Math.round(totalJobsPerMonth * 12);
+        const totalTimePerJob = assumptions.hoursPerJob + assumptions.travelTimePerJob;
+        const totalHoursNeeded = totalJobsPerYear * totalTimePerJob;
+        const effectiveHoursPerDay = Math.max(0, assumptions.hoursPerRobotPerDay - assumptions.chargingTimePerDay);
+        const hoursPerRobotPerYear = effectiveHoursPerDay * assumptions.daysPerMonth * 12;
+        const adjustedHoursPerRobot = hoursPerRobotPerYear * (assumptions.utilizationRate / 100 || 0.01);
+        const robots = adjustedHoursPerRobot > 0 ? Math.ceil(totalHoursNeeded / adjustedHoursPerRobot) : 0;
+        const previousRobots = index > 0 ? financials[index - 1].robots : 0;
+        const robotCosts = year === 1 ? robots * assumptions.robotCostPerUnit : Math.max(0, (robots - previousRobots) * assumptions.robotCostPerUnit);
+        const robotMaintenance = robots * assumptions.maintenancePerRobot;
+
+        const stations = assumptions.robotsPerStation > 0 ? Math.ceil(robots / assumptions.robotsPerStation) : 0;
+        const previousStations = index > 0 ? financials[index - 1].stations : 0;
+        const stationCosts = year === 1 ? stations * assumptions.stationCostPerUnit : Math.max(0, (stations - previousStations) * assumptions.stationCostPerUnit);
+        const stationMaintenance = stations * assumptions.stationMaintenancePerYear;
+
+        const totalCOGS = robotCosts + robotMaintenance + stationCosts + stationMaintenance;
+        const grossProfit = totalRevenue - totalCOGS;
+        const grossMargin = totalRevenue ? parseFloat(((grossProfit / totalRevenue) * 100).toFixed(1)) : 0;
+
+        const employees = Math.round(assumptions.employeesYear1 * Math.pow(1 + assumptions.employeeGrowthRate / 100, year - 1));
+        const salaries = employees * assumptions.salaryPerEmployee;
+        const marketing = Math.round(assumptions.marketingBudgetYear1 * Math.pow(1 + assumptions.marketingGrowthRate / 100, year - 1));
+        const insurance = Math.round(assumptions.insuranceYear1 * Math.pow(1 + assumptions.insuranceGrowthRate / 100, year - 1));
+        const utilities = Math.round(assumptions.utilitiesYear1 * Math.pow(1 + assumptions.utilitiesGrowthRate / 100, year - 1));
+        const totalOpEx = salaries + marketing + insurance + utilities;
+
+        const ebitda = grossProfit - totalOpEx;
+        const taxes = ebitda > 0 ? ebitda * (assumptions.taxRate / 100) : 0;
+        const netIncome = ebitda - taxes;
+        const netMargin = totalRevenue ? parseFloat(((netIncome / totalRevenue) * 100).toFixed(1)) : 0;
+
+        financials.push({
+          year,
+          subscribers,
+          oneTimeCustomers,
+          totalJobsPerYear,
+          subscriptionRevenue,
+          oneTimeRevenue,
+          totalRevenue,
+          robots,
+          robotCosts,
+          robotMaintenance,
+          stations,
+          stationCosts,
+          stationMaintenance,
+          totalCOGS,
+          grossProfit,
+          grossMargin,
+          employees,
+          salaries,
+          marketing,
+          insurance,
+          utilities,
+          totalOpEx,
+          ebitda,
+          taxes,
+          netIncome,
+          netMargin
+        });
+      });
+      return financials;
+    }
+
+    function renderTable(tableId, rows, financials) {
+      const table = document.getElementById(tableId);
+      if (!table) return;
+      const thead = table.querySelector('thead');
+      const tbody = table.querySelector('tbody');
+
+      thead.innerHTML = `<tr><th>Metric</th>${financials.map((f) => `<th>Year ${f.year}</th>`).join('')}</tr>`;
+
+      tbody.innerHTML = rows.map((row) => {
+        const rowClass = row.rowClass ? ` class="${row.rowClass}"` : '';
+        const valueCells = financials.map((f) => {
+          const value = typeof row.value === 'function' ? row.value(f) : f[row.key];
+          const formatted = row.format ? row.format(value) : value;
+          const valueClassName = row.valueClass ? row.valueClass(value) : '';
+          const classAttr = valueClassName ? ` class="${valueClassName}"` : '';
+          return `<td${classAttr}>${formatted}</td>`;
+        }).join('');
+        return `<tr${rowClass}><td>${row.label}</td>${valueCells}</tr>`;
+      }).join('');
+    }
+
+    function render() {
+      latestFinancials = calculateFinancials();
+
+      const revenueRows = [
+        { label: 'Subscribers', key: 'subscribers', format: numberFormat },
+        { label: 'One-Time Customers', key: 'oneTimeCustomers', format: numberFormat },
+        { label: 'Total Jobs Per Year', key: 'totalJobsPerYear', format: numberFormat, rowClass: 'accent-blue' },
+        { label: 'Subscription Revenue', key: 'subscriptionRevenue', format: currencyFormat, rowClass: 'accent-gray' },
+        { label: 'One-Time Revenue', key: 'oneTimeRevenue', format: currencyFormat, rowClass: 'accent-gray' },
+        { label: 'Total Revenue', key: 'totalRevenue', format: currencyFormat, rowClass: 'accent-blue' }
+      ];
+
+      const cogsRows = [
+        { label: 'Number of Robots', key: 'robots', format: numberFormat },
+        { label: 'Robot Acquisition', key: 'robotCosts', format: currencyFormat, rowClass: 'accent-gray' },
+        { label: 'Robot Maintenance', key: 'robotMaintenance', format: currencyFormat, rowClass: 'accent-gray' },
+        { label: 'Number of Stations', key: 'stations', format: numberFormat },
+        { label: 'Station Costs', key: 'stationCosts', format: currencyFormat, rowClass: 'accent-gray' },
+        { label: 'Station Maintenance', key: 'stationMaintenance', format: currencyFormat, rowClass: 'accent-gray' },
+        { label: 'Total COGS', key: 'totalCOGS', format: currencyFormat, rowClass: 'accent-green' },
+        {
+          label: 'Gross Profit',
+          key: 'grossProfit',
+          format: currencyFormat,
+          rowClass: 'accent-green',
+          valueClass: (value) => value < 0 ? 'value-negative' : 'value-positive'
+        },
+        { label: 'Gross Margin', key: 'grossMargin', format: percentFormat }
+      ];
+
+      const opexRows = [
+        { label: 'Number of Employees', key: 'employees', format: numberFormat },
+        { label: 'Salaries & Wages', key: 'salaries', format: currencyFormat, rowClass: 'accent-gray' },
+        { label: 'Marketing', key: 'marketing', format: currencyFormat, rowClass: 'accent-gray' },
+        { label: 'Insurance', key: 'insurance', format: currencyFormat, rowClass: 'accent-gray' },
+        { label: 'Utilities & Rent', key: 'utilities', format: currencyFormat, rowClass: 'accent-gray' },
+        { label: 'Total Operating Expenses', key: 'totalOpEx', format: currencyFormat, rowClass: 'accent-purple' }
+      ];
+
+      const profitRows = [
+        {
+          label: 'EBITDA',
+          key: 'ebitda',
+          format: currencyFormat,
+          rowClass: 'accent-gray',
+          valueClass: (value) => value < 0 ? 'value-negative' : 'value-positive'
+        },
+        { label: 'Taxes', key: 'taxes', format: currencyFormat },
+        {
+          label: 'Net Income',
+          key: 'netIncome',
+          format: currencyFormat,
+          rowClass: 'accent-yellow',
+          valueClass: (value) => value < 0 ? 'value-negative' : 'value-positive'
+        },
+        { label: 'Net Margin', key: 'netMargin', format: percentFormat }
+      ];
+
+      renderTable('revenue-table', revenueRows, latestFinancials);
+      renderTable('cogs-table', cogsRows, latestFinancials);
+      renderTable('opex-table', opexRows, latestFinancials);
+      renderTable('profit-table', profitRows, latestFinancials);
+    }
+
+    function exportToCSV() {
+      if (!latestFinancials.length) return;
+      let csv = 'ASSUMPTIONS\n';
+      csv += 'Category,Item,Value\n';
+      csv += `Revenue,Monthly Subscription Price,$${assumptions.subscriptionPrice}\n`;
+      csv += `Revenue,One-Time Service Price,$${assumptions.oneTimePrice}\n`;
+      csv += `Revenue,Year 1 Subscribers,${assumptions.year1Subscribers}\n`;
+      csv += `Revenue,Year 1 One-Time Customers,${assumptions.year1OneTime}\n`;
+      csv += `Revenue,Subscriber Growth Rate,${assumptions.subscriberGrowthRate}%\n`;
+      csv += `Revenue,One-Time Growth Rate,${assumptions.oneTimeGrowthRate}%\n`;
+      csv += '\nFINANCIAL PROJECTIONS\n';
+      csv += 'Metric,' + latestFinancials.map((f) => `Year ${f.year}`).join(',') + '\n';
+
+      const addSection = (title, rows) => {
+        csv += `\n${title}\n`;
+        rows.forEach((row) => {
+          const values = latestFinancials.map((f) => {
+            const value = typeof row.value === 'function' ? row.value(f) : f[row.key];
+            return row.format ? row.format(value) : value;
+          }).join(',');
+          csv += `${row.label},${values}\n`;
+        });
+      };
+
+      const csvFormats = {
+        number: (v) => Number(v).toLocaleString(),
+        currency: (v) => `$${Number(v).toLocaleString()}`,
+        percent: (v) => `${Number(v).toFixed(1)}%`
+      };
+
+      addSection('REVENUE', [
+        { label: 'Subscribers', key: 'subscribers', format: csvFormats.number },
+        { label: 'One-Time Customers', key: 'oneTimeCustomers', format: csvFormats.number },
+        { label: 'Total Jobs Per Year', key: 'totalJobsPerYear', format: csvFormats.number },
+        { label: 'Subscription Revenue', key: 'subscriptionRevenue', format: csvFormats.currency },
+        { label: 'One-Time Revenue', key: 'oneTimeRevenue', format: csvFormats.currency },
+        { label: 'Total Revenue', key: 'totalRevenue', format: csvFormats.currency }
+      ]);
+
+      addSection('COST OF GOODS SOLD', [
+        { label: 'Number of Robots', key: 'robots', format: csvFormats.number },
+        { label: 'Robot Acquisition Costs', key: 'robotCosts', format: csvFormats.currency },
+        { label: 'Robot Maintenance', key: 'robotMaintenance', format: csvFormats.currency },
+        { label: 'Number of Stations', key: 'stations', format: csvFormats.number },
+        { label: 'Station Costs', key: 'stationCosts', format: csvFormats.currency },
+        { label: 'Station Maintenance', key: 'stationMaintenance', format: csvFormats.currency },
+        { label: 'Total COGS', key: 'totalCOGS', format: csvFormats.currency },
+        { label: 'Gross Profit', key: 'grossProfit', format: csvFormats.currency },
+        { label: 'Gross Margin', key: 'grossMargin', format: csvFormats.percent }
+      ]);
+
+      addSection('OPERATING EXPENSES', [
+        { label: 'Number of Employees', key: 'employees', format: csvFormats.number },
+        { label: 'Salaries & Wages', key: 'salaries', format: csvFormats.currency },
+        { label: 'Marketing', key: 'marketing', format: csvFormats.currency },
+        { label: 'Insurance', key: 'insurance', format: csvFormats.currency },
+        { label: 'Utilities & Rent', key: 'utilities', format: csvFormats.currency },
+        { label: 'Total Operating Expenses', key: 'totalOpEx', format: csvFormats.currency }
+      ]);
+
+      addSection('PROFITABILITY', [
+        { label: 'EBITDA', key: 'ebitda', format: csvFormats.currency },
+        { label: 'Taxes', key: 'taxes', format: csvFormats.currency },
+        { label: 'Net Income', key: 'netIncome', format: csvFormats.currency },
+        { label: 'Net Margin', key: 'netMargin', format: csvFormats.percent }
+      ]);
+
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'financial_plan_5year.csv';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function initForm() {
+      const inputs = document.querySelectorAll('[data-field]');
+      inputs.forEach((input) => {
+        const { field } = input.dataset;
+        if (!(field in assumptions)) return;
+        input.value = assumptions[field];
+        input.addEventListener('input', (event) => {
+          const rawValue = parseFloat(event.target.value);
+          assumptions[field] = Number.isFinite(rawValue) ? rawValue : 0;
+          render();
+        });
+      });
+    }
+
+    initForm();
+    render();
+  </script>
+</body>
+</html>
